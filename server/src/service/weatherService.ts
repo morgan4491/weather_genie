@@ -9,17 +9,19 @@ class WeatherService {
   // Define the baseURL, API key, and city name properties
   baseURL: string;
   apiKey: string;
+  cityName: string;
 
-  constructor() {
+  constructor(baseURL: string, apiKey: string, cityName: string) {
     // TODO: Assign the properties baseURL and apiKey using process.env
-    this.baseURL = '';
-    this.apiKey = '';
+    this.baseURL = baseURL;
+    this.apiKey = apiKey;
+    this.cityName = cityName;
   }
 
   // TODO: Create fetchLocationData method
   async getForecastWeatherForCity(city: string) {
     // Create the url variable using this.baseURL + '/forecast', a query parameter of 'units' set to imperial, a query parameter of 'q' set to the city parameter above and a query parameter of appid set to this.apiKey
-    const url = '';
+    const url = this.baseURL + '/forecast';
 
     // Make a fetch request to OpenWeatherMap using the url above constructed above
     const res = await fetch(url);
