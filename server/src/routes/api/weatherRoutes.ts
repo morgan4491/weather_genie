@@ -16,7 +16,7 @@ router.post('/', async (req: Request, res: Response) => {
   const weatherData = [currentData, forecastData];
   
   // TODO: save city to search history
-  // Use the historyService.addCity() to store the searched city into our db.json - use req.body.cityName to get the city the user searched for
+  // Use the historyService.addCity() to store the searched city into our searchHistory.json - use req.body.cityName to get the city the user searched for
 
   // Send back a json response of the weatherData
   res.json(weatherData);
