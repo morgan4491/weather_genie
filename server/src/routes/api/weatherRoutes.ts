@@ -8,9 +8,9 @@ import weatherService from '../../service/weatherService.js';
 router.post('/', async (req: Request, res: Response) => {
   // Use the weatherService object to retrieve both current weather and forecast weather for the city the user searched for
   // req.body.cityName is the city value that the user searched for in the browser form input
-  const currentData = await weatherService.getWeatherForCity(req.body.cityName);
+  const currentData = await weatherService.getCurrentWeatherForCity(req.body.cityName);
   // Create a variable forecastData that stores the forecast data, using the weatherService.getForecastWeatherForCity()
-  const forecastData = '';
+  const forecastData = await weatherService.getForecastWeatherForCity(req.body.cityName);
 
   // Create a variable weatherData that stores an array of the currentData as the first item and forecastData as the second item
   const weatherData = [currentData, forecastData];
