@@ -11,14 +11,14 @@ router.post('/', async (req: Request, res: Response) => {
   const currentData = await weatherService.getCurrentWeatherForCity(req.body.cityName);
   // Create a variable forecastData that stores the forecast data, using the weatherService.getForecastWeatherForCity()
   const forecastData = await weatherService.getForecastWeatherForCity(req.body.cityName);
-
+  console.log('forecast data', forecastData);
   // Create a variable weatherData that stores an array of the currentData as the first item and forecastData as the second item
   const weatherData = [currentData, forecastData];
   
   // TODO: save city to search history
   // Use the historyService.addCity() to store the searched city into our searchHistory.json - use req.body.cityName to get the city the user searched for
   await historyService.addCity(req.body.cityName);
-
+  
   // Send back a json response of the weatherData
   res.json(weatherData);
 });

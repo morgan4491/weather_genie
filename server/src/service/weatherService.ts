@@ -1,8 +1,10 @@
+import dotenv from 'dotenv';
 import dayjs from 'dayjs';
 
 // Import axios to make our http requests to the OpenWeatherMap API
 import axios from 'axios';
 
+dotenv.config();
 // TODO: Complete the WeatherService class
 class WeatherService {
   // Define the baseURL and API key properties
@@ -24,17 +26,29 @@ class WeatherService {
     const res = await axios.get(url);
 
     // Please console.log res.data so you can see how the returned data is structured - The 5 day forecast will be provided to you in an array of 40 objects. Each object represents a 3-hour segment of time. 
-    console.log(res.data);
+    // console.log(res.data);
 
     // return the array of of 40 weather objects
-
-    // BONUS: filter the array of 40 objects down to just objects that have a dt_txt that includes '12:00'
-    return res.data.list.filter((weatherObj: any) => {
+    const filtered = res.data.list.filter((weatherObj: any) => {
       if (weatherObj.dt_txt.includes('12:00')) {
         return weatherObj
       }
       return false;
     });
+
+    const weatherData = filtered.map((weatherObj: any) => {
+      return {
+        city: city, // this is completed for you as an example
+        date: dayjs(weatherObj.dt * 1000).format('MM/DD/YYYY'), // Use the already installed dayjs package to convert weatherObj.dt * 1000 into a formatted date like '10/17/2024'
+        icon: weatherObj.weather[0].icon,
+        iconDescription: weatherObj.weather[0].description,
+        tempF: weatherObj.main.temp,
+        windSpeed: weatherObj.wind.speed,
+        humidity: weatherObj.main.humidity
+      };
+    });
+    // BONUS: filter the array of 40 objects down to just objects that have a dt_txt that includes '12:00'
+    return weatherData;
 
   }
 

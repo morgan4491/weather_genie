@@ -18,7 +18,7 @@ class HistoryService {
   private async read() {
     try {
       // Use fs to read the searchHistory.json file
-      const rawArray = await fs.readFile('../../db/searchHistory.json', 'utf-8');
+      const rawArray = await fs.readFile('db/searchHistory.json', 'utf-8');
 
       // Using fs will give you unparsed JSON data array
       // return the parsed array - ie. JSON.parse(rawArray);
@@ -38,7 +38,7 @@ class HistoryService {
     try {
       const data = JSON.stringify(cities);
       
-      await fs.writeFile('../../db/searchHistory.json', data, 'utf-8');
+      await fs.writeFile('db/searchHistory.json', data, 'utf-8');
     } catch (error) {
       console.error('Error writing to this file', error);
       throw error;
@@ -48,9 +48,8 @@ class HistoryService {
   async getCities() {
     // Get the array of cites, using the read method
     const cityArray = await this.read();
-    const cityObjects = cityArray.map((cityObj: any) => new City(cityObj.name));
 
-    return cityObjects;
+    return cityArray;
   }
 
   // TODO Define an addCity method that adds a city to the searchHistory.json file
@@ -78,10 +77,10 @@ class HistoryService {
   async removeCity(id: string) {
     // Get the cities array
     const citiesArray = await this.getCities();
-
+    console.log('id', id);
     // Filter out the city object within citiesArray that has an id matching the id above - ie. citiesArray.filter(() => {})
     const filterCity = citiesArray.filter((city: City) => city.id !== id);
-
+    console.log('filtered', filterCity);
     // Use the write method to overwrite the searchHistory.json file
     await this.write(filterCity);
 

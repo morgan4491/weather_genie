@@ -1,7 +1,7 @@
-import dotenv from 'dotenv';
+
 import express from 'express';
 // Allow us to pull variables from .env file with process.env
-dotenv.config();
+
 
 // Import the routes
 import routes from './routes/index.js';
